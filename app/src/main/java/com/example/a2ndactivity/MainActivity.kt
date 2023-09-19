@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import android.widget.TextView
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val outputTextView = findViewById<TextView>(R.id.outputTextView)
         val buttonPlus = findViewById<Button>(R.id.buttonPlus)
         val buttonMinus = findViewById<Button>(R.id.buttonMinus)
 
@@ -57,13 +55,16 @@ class MainActivity : AppCompatActivity() {
                     //remove previous input in the letter string
                     currentText = currentText.substring(0, currentText.length - 1)
                     showToast(currentText)
+                    isFirstFunctionPerformed = true
                     if (currentText.isEmpty()) {
                         //display "impossible" if subtracting beyond empty string
                         showToast("Impossible")
+                        isFirstFunctionPerformed = true
                     }
                 } else {
                     //display "impossible" if subtracting beyond empty string
                     showToast("Impossible")
+                    isFirstFunctionPerformed = true
                 }
 
                 //if + is pressed then it adds the button to the string and saves it, and it saves its phase as a functionperformed
@@ -94,13 +95,16 @@ class MainActivity : AppCompatActivity() {
                 val numberButton = v as Button
                 val number = numberButton.text.toString().toInt()
                 currentValue -= number
+                isFirstFunctionPerformed = true
 
                 if (currentValue >= 0) {
                     showToast(currentValue.toString())
+                    isFirstFunctionPerformed = true
                 } else {
                     //shows "impossible" if its negative
                     showToast("Impossible")
                     currentValue += number //reverts the operation of the subtraction so it doesnt show the negative
+                    isFirstFunctionPerformed = true
                 }
             } else if (isPlusPressed) {
                 //adding
